@@ -25,4 +25,11 @@ Enter your Seven Senders API key in the sqs-python-example.py file (`aws_access_
 
 ## Usage
 
-- Run `python3 sqs-python-example.py`
+Run
+
+```bash
+python3 sqs-python-example.py
+
+## Python 2:
+# python sqs-python-example.py
+```
