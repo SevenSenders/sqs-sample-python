@@ -13,14 +13,26 @@ sqs = boto3.client(
 queue_url = sqs.get_queue_url(QueueName='').get('QueueUrl')
 print('Queue URL: {}'.format(queue_url))
 
-# MESSAGES
-response = sqs.receive_message(QueueUrl='')
+# Example for receiving messages
+response = sqs.receive_message(QueueUrl=queue_url)
 messages = response.get('Messages')
 print('Messages in Queue: {}'.format(len(messages)))
 
-for message in messages:
-    message_id = message.get('MessageId')
-    body = message.get('Body')
+if messages:
+    # Process each message
+    for message in messages:
+        message_id = message.get('MessageId')
+        body = message.get('Body')
 
-    print('{}: {}'.format(message_id, body))
-    
+        print('{}: {}'.format(message_id, body))
+
+        # Process the message here...
+
+        # Example for deleting messages one by one
+        sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=message['ReceiptHandle'])
+
+    # Example for deleting messages in batch
+    # messages_to_delete = [{'Id': str(i), 'ReceiptHandle': msg['ReceiptHandle']} for i, msg in enumerate(messages)]
+    # sqs.delete_message_batch(QueueUrl=queue_url, Entries=messages_to_delete)
+else:
+    print("No messages in the queue.")
