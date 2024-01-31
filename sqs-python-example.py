@@ -4,7 +4,7 @@ import boto3
 sqs = boto3.client(
     'sqs',
     region_name='eu-central-1',
-    endpoint_url='https://analytics-api.7senders.com/queue.xml',
+    endpoint_url='https://sqs.sevensenders.com/api/v1/shipment-events',
     aws_access_key_id='your-7s-api-key-here', # 7S Shop API Key
     aws_secret_access_key='', # Keep it blank
 )
